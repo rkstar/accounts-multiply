@@ -1,6 +1,6 @@
 Package.describe({
   name: 'rkstar:accounts-multiply',
-  version: '0.1.2',
+  version: '0.1.3',
   summary: 'Support merging multiple login services to a single account in a Meteor app.',
   git: 'https://github.com/rkstar/accounts-multiply.git',
   documentation: 'README.md'
@@ -13,6 +13,7 @@ Package.onUse(function (api){
   api.use('underscore')
   api.use('ecmascript')
   api.use('check')
+  api.use('session')
   api.use('u2622:persistent-session@0.4.4')
 
   api.addFiles('lib/external-service-override.js', 'server')
