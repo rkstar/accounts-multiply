@@ -11,30 +11,26 @@ A bonus is you can allow login from **any** of the connected accounts and they w
 `meteor add rkstar:accounts-multiply`
 
 ## Usage
-This package was built to be a drop-in replacement for [mikael:accounts-merge](https://github.com/lirbank/meteor-accounts-merge).
-The [mikael:accounts-merge](https://github.com/lirbank/meteor-accounts-merge) package is great and serves most use cases very well,
-so this one was modeled after it.
+This package is based on work done in [splendid:accounts-meld](https://github.com/splendido/meteor-accounts-meld/) and has improved upon many
+features of the previous version of this package.
 
-To use accounts-multiply, simply use `Meteor.signInWithTwitter()` instead of `Meteor.loginWithTwitter()`.
-Unlike [mikael:accounts-merge](https://github.com/lirbank/meteor-accounts-merge), there is no callback option for `signInWithTwitter()`.
+To use accounts-multiply, simply install it from Atmosphere and continue to use `Meteor.loginWith<ExternalService>()`.
+Unlike [mikael:accounts-merge](https://github.com/lirbank/meteor-accounts-merge), there is no callback option for the login functions.
 Instead, there is a server hook exposed that allows you to run arbitrary code after an account has been merged.
 
 #### client
 ```javascript
-Meteor.signInWithTwitter()
-Meteor.signInWithFacebook()
-Meteor.signInWithGoogle()
-... etc
+Meteor.loginWithTwitter()
+Meteor.loginWithFacebook()
+Meteor.loginWithGoogle()
+...etc
 ```
 
 #### server
-By default, all multiplied/merged accounts are left in the `Meteor.users` collection.  If they are of no use to you, they can be automatically cleaned up by using the `cleanup` option:
-```javascript
-AccountsMultiply.cleanup = true
-```
-
 In order to run code after an account has been multiplied/merged you can add to the `onMultiply` routines:
 ```javascript
+import {AccountsMultiply} from 'meteor/rkstar:accounts-multiply'
+
 AccountsMultiply.onMultiply((owner, merged)=>{
   // owner
   // -> the originally logged in Meteor.users account
@@ -55,4 +51,4 @@ Multiple "priority" merge routines will be run **LIFO**
 
 
 ## Notes
-Thanks to [mikael:accounts-merge](https://github.com/lirbank/meteor-accounts-merge) for a fantastic template for merging OAuth accounts.
+Thanks to [splendido:accounts-meld](https://github.com/splendido/meteor-accounts-meld/) and [mikael:accounts-merge](https://github.com/lirbank/meteor-accounts-merge) for fantastic templates for merging OAuth accounts.
