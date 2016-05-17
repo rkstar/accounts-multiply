@@ -2,7 +2,9 @@ import {Meteor} from 'meteor/meteor'
 import {_} from 'meteor/underscore'
 
 class AccountsMultiply {
-  constructor(){}
+  constructor(){
+    this.routines = []
+  }
 
   onMultiply(fn, priority=false){
     if( Meteor.isServer ){
