@@ -1,6 +1,6 @@
 Package.describe({
   name: 'rkstar:accounts-multiply',
-  version: '1.1.0',
+  version: '1.1.1',
   summary: 'Support merging multiple login services to a single account in a Meteor app.',
   git: 'https://github.com/rkstar/accounts-multiply.git',
   documentation: 'README.md'
