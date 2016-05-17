@@ -16,7 +16,7 @@ const __updateOrCreateUserFromExternalService = Accounts.updateOrCreateUserFromE
   createServiceQuery = (serviceName, serviceData)=>{
     // search for the serviceData.id in an array of services with the serviceName
     const query = {$or: [{}, {}]}
-    query.$or[0][`services.${serviceName}`] = {id: serviceData.id}
+    query.$or[0][`services.${serviceName}.id`] = serviceData.id
     query.$or[1][`services.${serviceName}`] = {$elemMatch: {id: serviceData.id}}
     return query
   },
@@ -41,7 +41,11 @@ const __updateOrCreateUserFromExternalService = Accounts.updateOrCreateUserFromE
     let query = {_id: user._id},
       setAttrs = {$set: {}}
     query[`services.${serviceName}.id`] = serviceData.id
-    setAttrs.$set[`services.${serviceName}.$`] = serviceData
+    if( _.isArray(user.services[serviceName]) ){
+      setAttrs.$set[`services.${serviceName}.$`] = serviceData
+    } else {
+      setAttrs.$set[`services.${serviceName}`] = [serviceData]
+    }
     Meteor.users.update(query, setAttrs)
   },
   addServiceAccountToUser = (user, serviceName, serviceData)=>{
@@ -99,6 +103,10 @@ Accounts.updateOrCreateUserFromExternalService = function(serviceName, serviceDa
     }
   } else {
     const serviceQuery = createServiceQuery(serviceName, serviceData)
+
+    console.log('service query ----------')
+    console.log(JSON.stringify(serviceQuery, null, 2))
+
     user = Meteor.users.findOne(serviceQuery)
     if( user ){
       pinEncryptedFieldsToUser(serviceData, user._id)
