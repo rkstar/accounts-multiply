@@ -1,4 +1,4 @@
-# accounts-multply
+# accounts-multiply
 ----
 
 This package allows you to support having multiple OAuth accounts from a single service under one user account in your Meteor application.
