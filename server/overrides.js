@@ -103,10 +103,6 @@ Accounts.updateOrCreateUserFromExternalService = function(serviceName, serviceDa
     }
   } else {
     const serviceQuery = createServiceQuery(serviceName, serviceData)
-
-    console.log('service query ----------')
-    console.log(JSON.stringify(serviceQuery, null, 2))
-
     user = Meteor.users.findOne(serviceQuery)
     if( user ){
       pinEncryptedFieldsToUser(serviceData, user._id)
