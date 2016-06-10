@@ -18,10 +18,6 @@ Meteor.methods({
       if( account.hasOwnProperty('__default') ){
         let setAttrs = {$unset: {}}
         setAttrs.$unset[`services.${serviceName}.${idx}.__default`] = ""
-
-        console.log('query:', query)
-        console.log('setAttrs:', setAttrs)
-
         Meteor.users.update(query, setAttrs)
       }
     })
@@ -43,10 +39,6 @@ Meteor.methods({
       setAttrs.$set[`services.${serviceName}.0.__default`] = true
     }
 
-    console.log('query:', query)
-    console.log('setAttrs:', setAttrs)
-
     return Meteor.users.update(query, setAttrs)
-
   }
 })
